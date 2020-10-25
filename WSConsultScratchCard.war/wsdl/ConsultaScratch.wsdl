@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://consulta.digitel.com.ve" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="http://consulta.digitel.com.ve" xmlns:intf="http://consulta.digitel.com.ve" xmlns:tns1="http://servlet.scratch.digitel.com.ve" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<!--WSDL created by Apache Axis version: 1.4
+Built on Apr 22, 2006 (06:55:48 PDT)-->
+ <wsdl:types>
+  <schema elementFormDefault="qualified" targetNamespace="http://consulta.digitel.com.ve" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="http://servlet.scratch.digitel.com.ve"/>
+   <element name="consult_scratch">
+    <complexType>
+     <sequence>
+      <element name="serial_number" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="consult_scratchResponse">
+    <complexType>
+     <sequence>
+      <element name="consult_scratchReturn" type="tns1:ScratchCardResponse"/>
+     </sequence>
+    </complexType>
+   </element>
+  </schema>
+  <schema elementFormDefault="qualified" targetNamespace="http://servlet.scratch.digitel.com.ve" xmlns="http://www.w3.org/2001/XMLSchema">
+   <complexType name="ScratchCardResponse">
+    <sequence>
+     <element name="code" nillable="true" type="xsd:string"/>
+     <element name="date" nillable="true" type="xsd:string"/>
+     <element name="message" nillable="true" type="xsd:string"/>
+     <element name="serial_number" nillable="true" type="xsd:string"/>
+     <element name="subscriber" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+  </schema>
+ </wsdl:types>
+
+   <wsdl:message name="consult_scratchResponse">
+
+      <wsdl:part element="impl:consult_scratchResponse" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="consult_scratchRequest">
+
+      <wsdl:part element="impl:consult_scratch" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:portType name="ConsultaScratch">
+
+      <wsdl:operation name="consult_scratch">
+
+         <wsdl:input message="impl:consult_scratchRequest" name="consult_scratchRequest"/>
+
+         <wsdl:output message="impl:consult_scratchResponse" name="consult_scratchResponse"/>
+
+      </wsdl:operation>
+
+   </wsdl:portType>
+
+   <wsdl:binding name="ConsultaScratchSoapBinding" type="impl:ConsultaScratch">
+
+      <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+      <wsdl:operation name="consult_scratch">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="consult_scratchRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="consult_scratchResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:binding>
+
+   <wsdl:service name="ConsultaScratchService">
+
+      <wsdl:port binding="impl:ConsultaScratchSoapBinding" name="ConsultaScratch">
+
+         <wsdlsoap:address location="http://localhost:7001/WSConsultScratchCard/services/ConsultaScratch"/>
+
+      </wsdl:port>
+
+   </wsdl:service>
+
+</wsdl:definitions>

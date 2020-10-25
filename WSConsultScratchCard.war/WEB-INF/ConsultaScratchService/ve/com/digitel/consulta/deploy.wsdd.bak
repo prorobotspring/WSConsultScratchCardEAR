@@ -1,0 +1,37 @@
+<!-- Use this file to deploy some handlers/chains and services      -->
+<!-- Two ways to do this:                                           -->
+<!--   java org.apache.axis.client.AdminClient deploy.wsdd          -->
+<!--      after the axis server is running                          -->
+<!-- or                                                             -->
+<!--   java org.apache.axis.utils.Admin client|server deploy.wsdd   -->
+<!--      from the same directory that the Axis engine runs         -->
+
+<deployment
+    xmlns="http://xml.apache.org/axis/wsdd/"
+    xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+
+  <!-- Services from ConsultaScratchService WSDL service -->
+
+  <service name="ConsultaScratch" provider="java:RPC" style="wrapped" use="literal">
+      <parameter name="wsdlTargetNamespace" value="http://consulta.digitel.com.ve"/>
+      <parameter name="wsdlServiceElement" value="ConsultaScratchService"/>
+      <parameter name="schemaQualified" value="http://servlet.scratch.digitel.com.ve,http://consulta.digitel.com.ve"/>
+      <parameter name="wsdlServicePort" value="ConsultaScratch"/>
+      <parameter name="className" value="ve.com.digitel.consulta.ConsultaScratchSoapBindingImpl"/>
+      <parameter name="wsdlPortType" value="ConsultaScratch"/>
+      <parameter name="typeMappingVersion" value="1.2"/>
+      <operation name="consult_scratch" qname="operNS:consult_scratch" xmlns:operNS="http://consulta.digitel.com.ve" returnQName="retNS:consult_scratchReturn" xmlns:retNS="http://consulta.digitel.com.ve" returnType="rtns:ScratchCardResponse" xmlns:rtns="http://servlet.scratch.digitel.com.ve" soapAction="" >
+        <parameter qname="pns:serial_number" xmlns:pns="http://consulta.digitel.com.ve" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <parameter name="allowedMethods" value="consult_scratch"/>
+
+      <typeMapping
+        xmlns:ns="http://servlet.scratch.digitel.com.ve"
+        qname="ns:ScratchCardResponse"
+        type="java:ve.com.digitel.scratch.servlet.ScratchCardResponse"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+  </service>
+</deployment>
